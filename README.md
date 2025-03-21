@@ -1,79 +1,108 @@
 # Aktivite Rapor Uygulaması
 
-Bu uygulama, danışmanların aktivite raporlarını oluşturmak ve PDF formatında dışa aktarmak için kullanılır.
+Bu uygulama, aktivitelerinizi kaydetmenize ve bu aktivitelerden rapor oluşturmanıza olanak sağlayan bir web uygulamasıdır.
 
-## Gereksinimler
+## Özellikler
 
-### Backend için:
-- Node.js (v14 veya daha yüksek)
-- npm (Node.js paket yöneticisi)
+- Aktivite ekleme, düzenleme ve silme
+- Aktivitelerle ilgili dosyaları yükleme ve indirme
+- Belirli tarih aralığındaki aktivitelerden PDF raporu oluşturma
+- Mobil uyumlu arayüz
 
-### Frontend için:
-- Node.js (v14 veya daha yüksek)
-- npm (Node.js paket yöneticisi)
-- React ve diğer paketler (package.json içinde belirtilmiştir)
+## Kurulum
 
-## Kurulum ve Çalıştırma
+### Gereksinimler
 
-### Otomatik Başlatma (Önerilen)
+- Node.js (v14 veya üzeri)
+- MongoDB (v4 veya üzeri)
+- npm veya yarn
 
-Uygulamayı hızlıca başlatmak için:
+### Backend Kurulumu
 
-1. `start-aktivite.bat` dosyasını ana dizine koyun
-2. `start-aktivite.bat` dosyasına çift tıklayın
-3. Script, otomatik olarak hem backend hem de frontend servislerini başlatacaktır
-4. Tarayıcınızda `http://localhost:3000` adresine giderek uygulamayı kullanabilirsiniz
-
-### Manuel Başlatma
-
-Servisleri ayrı ayrı manuel olarak başlatmak isterseniz:
-
-#### Backend başlatma:
 ```bash
+# backend dizinine geçin
 cd backend
+
+# Bağımlılıkları yükleyin
 npm install
-node server.js
+
+# uploads klasörünü oluşturun (dosya yüklemeleri için)
+mkdir -p uploads
+
+# Sunucuyu başlatın
+npm start
 ```
 
-#### Frontend başlatma:
+### Frontend Kurulumu
+
 ```bash
+# frontend dizinine geçin
 cd frontend
+
+# Bağımlılıkları yükleyin
 npm install
+
+# Geliştirme sunucusunu başlatın
 npm start
 ```
 
 ## Kullanım
 
-1. Uygulamaya tarayıcınızdan `http://localhost:3000` adresinden erişin
-2. Excel dosyanızı yükleyin
-3. Rapor filtrelerini istediğiniz şekilde ayarlayın
-4. "Rapor Oluştur" düğmesine tıklayın
-5. Oluşturulan raporu görüntüleyin ve "PDF İndir" butonuyla PDF olarak indirin
+Uygulamayı başlattıktan sonra tarayıcınızdan `http://localhost:3000` adresine giderek kullanmaya başlayabilirsiniz.
 
-## Özellikler
+### Aktivite Ekleme
 
-- Excel dosyasından aktivite verilerini okuma
-- Danışman, müşteri ve proje bazlı filtreleme
-- Tarih aralığı seçimi
-- Aktivite ve fatura saatlerinin detaylı raporlanması
-- İzin tablosu görüntüleme
-- PDF raporu oluşturma ve indirme
+1. Ana menüden "Aktivite Ekle" seçeneğine tıklayın
+2. Gerekli bilgileri doldurun
+3. İsterseniz bir dosya ekleyin
+4. "Aktivite Ekle" butonuna tıklayın
 
-## Sorun Giderme
+### Rapor Oluşturma
 
-1. **Backend başlamıyor ise:**
-   - Node.js'in doğru şekilde kurulu olduğundan emin olun
-   - Port 5002'nin boşta olduğunu kontrol edin
+1. Ana menüden "Rapor Oluştur" seçeneğine tıklayın
+2. Başlangıç ve bitiş tarihlerini seçin
+3. "PDF Olarak İndir" butonuna tıklayın
 
-2. **Frontend başlamıyor ise:**
-   - Node.js'in doğru şekilde kurulu olduğundan emin olun
-   - npm paketlerinin doğru şekilde yüklendiğini kontrol edin
-   - Port 3000'in boşta olduğunu kontrol edin
+## Başlatma Betikleri
 
-3. **Backend ve frontend başladı ancak uygulama çalışmıyor ise:**
-   - Tarayıcı konsolunda hata mesajlarını kontrol edin
-   - Backend konsolunda hata mesajlarını kontrol edin
+### Windows için
 
-## Not
+```batch
+@echo off
+start "MongoDB" /min "C:\Program Files\MongoDB\Server\6.0\bin\mongod.exe" --dbpath="C:/data/db"
+cd backend
+start "Backend" cmd /k "npm start"
+cd ../frontend
+start "Frontend" cmd /k "npm start"
+```
 
-Bu uygulama, hem backend hem de frontend servislerinin çalışmasını gerektirir. Birini kapatırsanız, uygulama düzgün çalışmayacaktır.
+### PowerShell için
+
+```powershell
+# MongoDB'yi başlat
+Start-Process -WindowStyle Minimized -FilePath "C:\Program Files\MongoDB\Server\6.0\bin\mongod.exe" -ArgumentList "--dbpath=C:/data/db"
+
+# Backend'i başlat
+Start-Process -WorkingDirectory "./backend" -FilePath "cmd" -ArgumentList "/k npm start"
+
+# Frontend'i başlat
+Start-Process -WorkingDirectory "./frontend" -FilePath "cmd" -ArgumentList "/k npm start"
+```
+
+## Teknolojiler
+
+### Backend
+- Node.js
+- Express.js
+- MongoDB ve Mongoose
+- Multer (dosya yükleme)
+
+### Frontend
+- React
+- TypeScript
+- Axios
+- jsPDF (PDF oluşturma)
+
+## Lisans
+
+Bu proje MIT lisansı altında lisanslanmıştır. Daha fazla bilgi için [LICENSE](LICENSE) dosyasına bakın.
